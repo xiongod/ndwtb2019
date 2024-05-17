@@ -1,5 +1,5 @@
-import uuid
-import requests
+import traceback
+
 from bs4 import BeautifulSoup
 from xUtils import download_video, toMp3, mp4Time
 import re
@@ -18,9 +18,10 @@ with open('wtb.html', 'r', encoding='utf-8') as file:
     # 解析图片
     index = 0
     data_list = []
+    os.makedirs("./data")
     for a in eas:
         try:
-            os.makedirs("./data")
+
             # 获取图片的src地址
             ariaLabel = a['aria-label']
             href = a['href']
@@ -31,22 +32,24 @@ with open('wtb.html', 'r', encoding='utf-8') as file:
                 print("下载")
                 mp4Name = download_video(href, './data/')
                 # 获取时长
-                print("下载")
+                print("获取时长")
                 durationStr = mp4Time('./data/'+mp4Name)
                 # 转mp3 删除视频
-                print("下载")
+                print("转mp3 删除视频")
                 mp3Name = toMp3('./data/'+mp4Name)
                 # 数据集成json
                 print("数据集成json")
                 mp3_data.title = title
                 mp3_data.url = "https://xiongod.github.io/ndwtb2019/data/" + mp3Name
                 mp3_data.duration = durationStr
-
+                data_list.append(mp3_data)
                 index += 1
         except Exception as e:
+            error_message = f"发生了一个异常: {e}\n{traceback.format_exc()}"
+            print(error_message)  # 打印异常信息到控制台
             continue
     print("将对象转成js")
-    json_data = json.dumps(mp3_data, cls=CustomEncoder, indent=4, ensure_ascii=False)
+    json_data = json.dumps(data_list, cls=CustomEncoder, indent=4, ensure_ascii=False)
     print("打印js")
     print(json_data)
     print("写入js")
@@ -54,4 +57,4 @@ with open('wtb.html', 'r', encoding='utf-8') as file:
     with open('./data/js/script.js', 'w', encoding='utf-8') as file:
         # 写入JavaScript代码
         file.write(json_data)
-print(index)
+
