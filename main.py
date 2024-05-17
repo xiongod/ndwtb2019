@@ -54,7 +54,7 @@ with open('wtb.html', 'r', encoding='utf-8') as file:
     print(json_data)
     print("写入js")
     os.makedirs("./data/js")
-    with open('./data/js/script.js', 'w', encoding='utf-8') as file:
+    with open('./data/js/data.js', 'w', encoding='utf-8') as file:
         # 写入JavaScript代码
         file.write(json_data)
 
