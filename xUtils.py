@@ -27,24 +27,27 @@ def download_video(url, output_path):
 # 视频转音频
 def toMp3(mp4FileName):
     try:
+        print("开始视频转音频")
         video = VideoFileClip(mp4FileName)
         audio = video.audio
         mp3Name = str(uuid.uuid4()) + ".mp3"
         # 写入MP3文件并设置比特率
-        audio.write_audiofile(mp3Name, codec='libmp3lame', bitrate='64K')
+        audio.write_audiofile("./data/"+mp3Name, codec='libmp3lame', bitrate='64K')
 
         # 关闭视频和音频的读取器，释放资源
         video.reader.close()
         audio.reader.close_proc()  # 注意这里使用close_proc()来确保子进程被关闭
 
-        print("删除视频……")
+        print("视频转音频结束，开始删除视频")
         os.remove(mp4FileName)
         return mp3Name
+        print("视频删除成功")
     except Exception as e:
         print("视频转音频出现异常:", e)
 
 
 def mp4Time(mp4FileName):
+    print("获取视频时长")
     clip = VideoFileClip(mp4FileName)
     duration = clip.duration
     duration = int(duration)
@@ -53,3 +56,6 @@ def mp4Time(mp4FileName):
     durationStr = str(minutes) + "分" + str(remaining_seconds) + "秒"
     print("视频时长：" + durationStr)
     return durationStr
+
+
+#toMp3("./data/126e5de0-c1bd-4638-8286-71bdb1c08162.mp4")
