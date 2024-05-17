@@ -1,14 +1,7 @@
 import uuid
-import feedparser
 import os
-# from moviepy.editor import AudioFileClip
 from moviepy.editor import VideoFileClip
 from pytube import YouTube
-from datetime import timedelta, datetime
-#from Mp3Data import Mp3Data, Author, DataAll, CustomEncoder
-import json
-from dateutil import parser
-import pytz
 
 
 # 下载视频
@@ -34,7 +27,7 @@ def download_video(url, output_path):
 # 视频转音频
 def toMp3(mp4FileName):
     try:
-        video = VideoFileClip()
+        video = VideoFileClip(mp4FileName)
         audio = video.audio
         mp3Name = str(uuid.uuid4()) + ".mp3"
         # 写入MP3文件并设置比特率
