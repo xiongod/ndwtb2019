@@ -31,12 +31,16 @@ with open('wtb.html', 'r', encoding='utf-8') as file:
                 # print(title)
 
                 # 下载
+                print("下载")
                 mp4Name = download_video(href, './')
                 # 获取时长
+                print("获取时长")
                 durationStr = mp4Time(mp4Name)
                 # 转mp3 删除视频
+                print("删除视频")
                 mp3Name = toMp3(mp4Name)
                 # 数据集成json
+                print("数据集成json")
                 mp3_data.title = title
                 mp3_data.url = "https://xiongod.github.io/ndwtb2019/" + mp3Name
                 mp3_data.duration = durationStr
