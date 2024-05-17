@@ -30,6 +30,7 @@ jobs:
           pip install moviepy # 音频转视频
           pip install python-dateutil #处理日期插件
           pip install pytz
+          pip install beautifulsoup4
       # 克隆目标仓库
       - name: 下载仓库代码
         run: |
