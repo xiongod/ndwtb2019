@@ -39,7 +39,7 @@ jobs:
           git config user.email "xiongod@outlook.com"
       # 删除所有以 .mp3 结尾的文件
       - name: 删除原有的音频文件
-        working-directory: ./copyYoutube
+        working-directory: ./ndwtb2019
         run: |
           find . -type f -name "*.mp3" -delete
           find . -type f -name "*.mp4" -delete
